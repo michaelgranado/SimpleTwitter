@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="0dp"
+    android:layout_marginStart="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/tvBody"
+        android:layout_marginTop="45dp"
+        android:background="#A5ECF4" />
+
+
+    <ImageView
+        android:id="@+id/ivProfileImage"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvScreenName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="false"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_toEndOf="@+id/tvName"
+        android:textSize="12sp"
+        tools:text="@magranado" />
+
+    <TextView
+        android:id="@+id/tvBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvName"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        tools:text="This is my tweet!" />
+
+    <TextView
+        android:id="@+id/tvTimestamp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="335dp"
+        android:layout_marginTop="3dp"
+        android:textSize="12sp"
+        tools:text="1 hour ago" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="false"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="1dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:textColor="@android:color/black"
+        tools:text="Michael Granado" />
+
+    <TextView
+        android:id="@+id/tvRetweets"
+        android:layout_width="48dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/tvBody"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="false"
+        android:layout_marginStart="210dp"
+        android:layout_marginTop="20dp"
+        android:textSize="10sp"
+        tools:text="100" />
+
+    <TextView
+        android:id="@+id/tvFavorites"
+        android:layout_width="48dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/tvBody"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="false"
+        android:layout_marginStart="350dp"
+        android:layout_marginTop="20dp"
+        android:textSize="10sp"
+        tools:text="1000" />
+
+    <ImageButton
+        android:id="@+id/retweetButton"
+        android:layout_width="48dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/tvBody"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="false"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="8dp"
+        android:background="#0000ffff"
+        android:src="@drawable/ic_vector_retweet"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/favoriteButton"
+        android:layout_width="48dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/tvBody"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="false"
+        android:layout_marginStart="310dp"
+        android:layout_marginTop="8dp"
+        android:background="#0000ffff"
+        android:src="@drawable/ic_vector_heart"
+        tools:ignore="SpeakableTextPresentCheck" />
+</RelativeLayout>
