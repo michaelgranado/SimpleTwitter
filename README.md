@@ -27,7 +27,7 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] Retweets and Favorites are shown for each tweet on the timeline
+- [X] Retweets and Favorites are shown for each tweet on the timeline
 
 ## Video Walkthrough
 
