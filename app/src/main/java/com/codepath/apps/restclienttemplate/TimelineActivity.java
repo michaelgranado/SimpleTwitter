@@ -1,18 +1,31 @@
 package com.codepath.apps.restclienttemplate;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +46,7 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timeline);
+       setContentView(R.layout.activity_timeline);
 
         client = TwitterApp.getRestClient(this);
 
@@ -74,6 +87,27 @@ public class TimelineActivity extends AppCompatActivity {
 
         populateHomeTimeline();
     }
+/*
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if ( item.getItemId() == R.id.compose) {
+            // Compose icon has been selected
+            Toast.makeText(this, "Compose!", Toast.LENGTH_SHORT).show();
+            // Navigate to the compose activity
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }*/
+
+
 
     private void loadMoreData() {
         // 1. Send an API request to retrieve appropriate paginated data
@@ -100,6 +134,7 @@ public class TimelineActivity extends AppCompatActivity {
         }, tweets.get(tweets.size()-1).id);
     }
 
+
     private void populateHomeTimeline() {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
@@ -112,7 +147,7 @@ public class TimelineActivity extends AppCompatActivity {
                     // Now we call setRefreshing(false) to signal refresh has finished
                     swipeContainer.setRefreshing(false);
                 } catch (JSONException e) {
-                    Log.e(TAG, "Json exceptiion", e);
+                    Log.e(TAG, "Json exception", e);
                 }
             }
 
@@ -121,5 +156,31 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.e(TAG, "onFailure!" + response, throwable);
             }
         });
+    }
+    ActivityResultLauncher<Intent> tweetActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+
+                        Intent data = result.getData();
+                        // Get the data from the intent(tweet)
+                        Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+                        // Update the RV with the tweet
+                        // Modify data source of tweets
+                        tweets.add(0, tweet);
+                        // Update the adapter
+                        adapter.notifyItemInserted(0);
+                        rvTweets.smoothScrollToPosition(0);
+                    }
+                }
+            });
+
+    public void onComposeAction(View view) {
+        // Navigate to the compose activity
+        Intent intent = new Intent(this, ComposeActivity.class);
+        tweetActivityResultLauncher.launch(intent);
+
     }
 }
